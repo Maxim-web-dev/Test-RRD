@@ -1,58 +1,59 @@
 import {
-  Route,
-  Navigate,
-  RouterProvider,
-  createBrowserRouter,
-  createRoutesFromElements,
-} from "react-router-dom";
-
-import { Homepage } from "./pages/Homepage";
-import { About } from "./pages/Aboutpage";
-import { Blogpage, blogLoader } from "./pages/Blogpage";
-import { Createpost } from "./pages/Createpost";
-import { Editpost } from "./pages/Editpost";
-import { Singlepage, postLoader } from "./pages/Singlepage";
-import { Notfoundpage } from "./pages/Notfoundpage";
-import { LoginPage } from "./pages/Loginpage";
-
-import { Layout } from "./components/Layout";
-
-import { RequireAuth } from "./hoc/RequireAuth";
-import { AuthProvider } from "./hoc/AuthProvider";
-
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route path="/" element={<Layout />}>
-      <Route index element={<Homepage />} />
-      <Route path="about" element={<About />}>
-        <Route path="contacts" element={<p>Our contact</p>} />
-        <Route path="team" element={<p>Our team</p>} />
-      </Route>
-      <Route path="about-us" element={<Navigate to="/about" replace />} />
-      <Route path="posts" element={<Blogpage />} loader={blogLoader}/>
-      <Route path="posts/:id" element={<Singlepage />}  loader={postLoader}/>
-      <Route path="posts/:id/edit" element={<Editpost />} />
-      <Route
-        path="posts/new"
-        element={
-          <RequireAuth>
-            <Createpost />
-          </RequireAuth>
-        }
-      />
-      <Route path="login" element={<LoginPage />} />
-      <Route path="*" element={<Notfoundpage />} />
-    </Route>
-  )
-);
-
-function App() {
+    Route,
+    RouterProvider,
+    createBrowserRouter,
+    createRoutesFromElements,
+  } from "react-router-dom";
+  import { SignIn } from "./components/signIn/signIn";
+  import { SignUp } from "./components/signUp/signUp";
+  import Layout from "./layout/Layout";
+  import ErrorElement from "./ErrorElement";
+  import StartPage from "./pages/StartPage";
+  import HomePage from "./pages/HomePage";
+  import RequireAuth from "./hoc/RequireAuth";
+  import { useState } from "react";
+  import Account from "./layout/Account";
   
-  return (
-    <AuthProvider>
-      <RouterProvider router={router} />
-    </AuthProvider>
-  );
-}
+  export default function App() {
+    const [user, setUser] = useState(false)
+    localStorage.setItem('user', user)
+  
+    const router = createBrowserRouter(
+      createRoutesFromElements(
+        // <Route path='/' element={<Layout />} errorElement={<ErrorElement />}>
+        //   <Route index element={<StartPage />} />
+  
+        //   <Route path='home' element={
+        //     <RequireAuth user={user}>
+        //       <HomePage />
+        //     </RequireAuth>
+        //   } />
+        //   <Route path="account" element={<Account />} />
+        //   <Route path='account/signin' element={<SignIn setUser={setUser}/>} />
+        //   <Route path='/account/signin' element={<SignIn setUser={setUser}/>} />
+        //   {/* <Route path='account/signup' element={<SignUp />} /> */}
+        //   <Route path='*' element={<ErrorElement />} />
+  
+        // </Route>
+  
+        <Route path="/" element={<Layout />} errorElement={<ErrorElement />}>
+          <Route index element={<StartPage />}/>
+  
+          <Route path='home' element={
+              <RequireAuth>
+                <HomePage />
+              </RequireAuth>
+            } />
+          <Route path="account" element={<Account />} >
+            <Route path='signin' element={<SignIn setUser={setUser}/>} />
+          </Route>
+        </Route>
+      )
+    );
 
-export default App;
+    return (
+      <>
+        <RouterProvider router={router} />
+      </>
+    );
+  }

@@ -1,0 +1,57 @@
+.body {
+    width: 100%;
+    background: rgb(148, 42, 12);
+    background: radial-gradient(circle, rgb(162, 30, 30) 0%, rgba(0,0,0,1) 70%);
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-width: 320px;
+    min-height: 100vh;
+}
+
+.signIn{
+    font-size: 15px;
+    border-radius: 18px;
+    border: 1px solid transparent;
+    padding-bottom: 8px; 
+    padding: 7px;
+    width: 21vw;
+    background-color: #ffffff;
+    cursor: pointer;
+    transition: border-color 0.25s;
+    text-align: center;
+    text-decoration: none;
+  }
+  .signIn:hover {
+    border-color: #ff0000;
+  }
+  .signIn:focus,
+  .signIn:focus-visible {
+    outline: 4px auto -webkit-focus-ring-color;
+  }
+  .signInСontainer{
+    display: flex;
+    border-radius: 20px;
+    box-shadow: 0px 0px 50px 3px black;
+    background-color: rgb(255, 240, 240);
+  }
+  .imgSignIn{
+    border-radius: 0 20px 20px 0;
+  }
+  .textBlockSignIn{
+    width: 30vw;
+    flex: 1; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+.h2{
+    background: linear-gradient(45deg, #1b1616 33%, #ff3c70 66%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: #0B2349;
+}
